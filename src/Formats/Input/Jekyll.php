@@ -3,7 +3,7 @@ namespace MarHue\Migrations\JekyllKirby\Formats\Input;
 
 use MarHue\CMSMigrations\MigrationTool\Formats\BaseFormat;
 use Illuminate\Filesystem\FilesystemAdapter;
-use MarHue\CMSMigrations\MigrationTool\FormatsInputTrait;
+use MarHue\CMSMigrations\MigrationTool\Formats\InputTrait;
 
 class Jekyll extends BaseFormat
 {
