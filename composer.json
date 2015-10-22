@@ -1,0 +1,21 @@
+{
+  "autoload": {
+    "psr-4": {
+      "MarHue\\Migrations\\JekyllKirby\\": "src/"
+    }
+  },
+  "name": "marhue/jekyll-kirby-migration",
+  "version": "0.0.1",
+  "description": "Required files for the cms migration from jekyll to kirby.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcel Huetzen",
+      "email": "marcel@pixolith.de"
+    }
+  ],
+  "minimum-stability": "alpha",
+  "require-dev": {
+    "marhue/cms-migration-tool": "0.0.1"
+  }
+}
