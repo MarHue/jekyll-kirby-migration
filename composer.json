@@ -16,6 +16,6 @@
   ],
   "minimum-stability": "alpha",
   "require-dev": {
-    "marhue/cms-migration-tool": "0.0.1"
+    "marhue/cms-migration-tool": "dev-master"
   }
 }
