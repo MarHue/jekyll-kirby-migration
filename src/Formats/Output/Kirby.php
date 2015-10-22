@@ -2,7 +2,7 @@
 namespace MarHue\Migrations\JekyllKirby\Formats\Output;
 
 use Illuminate\Filesystem\FilesystemAdapter;
-use CMSMigrationTool\MigrationTool\Formats\BaseFormat;
+use MarHue\CMSMigrations\MigrationTool\Formats\BaseFormat;
 
 class Kirby extends BaseFormat
 {

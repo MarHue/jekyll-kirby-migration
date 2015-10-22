@@ -1,9 +1,9 @@
 <?php
 namespace MarHue\Migrations\JekyllKirby\Formats\Input;
 
-use CMSMigrationTool\MigrationTool\Formats\BaseFormat;
+use MarHue\CMSMigrations\MigrationTool\Formats\BaseFormat;
 use Illuminate\Filesystem\FilesystemAdapter;
-use CMSMigrationTool\MigrationTool\Formats\InputTrait;
+use MarHue\CMSMigrations\MigrationTool\FormatsInputTrait;
 
 class Jekyll extends BaseFormat
 {
