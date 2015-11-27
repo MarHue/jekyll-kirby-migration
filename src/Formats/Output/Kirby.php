@@ -38,7 +38,7 @@ class Kirby extends BaseFormat
                     ' content ' => "eval('?>' . \$page->content()->get('text') . '<?php ')",
                     'site\.baseurl' => '$site->url() . "/"',
                     'page.title' => '$page->title()',
-                    'page.contentId' => '$page->contentId()', // TODO Too hard!
+                    'page.contentId' => '$page->contentId()',
 
                     ' include ' => "snippet('",
                     '\.html' => "');",
