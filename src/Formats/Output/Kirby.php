@@ -132,62 +132,74 @@ class Kirby extends BaseFormat
      */
     protected function saveFile($filePath, $content)
     {
-
         if (substr($filePath, 0, 1) === '_') {
-            //if filename begin with _includes, put file in folder site/snippet as .php file
+            // if filename begin with _includes, put file in folder site/snippet as .php file
             if (substr($filePath, 0, 9) === '_includes') {
-                $this->getDisk()->put($newPath = 'site' . DIRECTORY_SEPARATOR . 'snippets' . DIRECTORY_SEPARATOR .
-                    pathinfo($filePath, PATHINFO_FILENAME) . '.' . str_replace(pathinfo($filePath, PATHINFO_EXTENSION),
+                $this->getDisk()->put($newPath = 'site' . DIRECTORY_SEPARATOR .
+                    'snippets' . DIRECTORY_SEPARATOR .
+                    pathinfo($filePath, PATHINFO_FILENAME) . '.' .
+                    str_replace(pathinfo($filePath, PATHINFO_EXTENSION),
                         'php', pathinfo($filePath, PATHINFO_EXTENSION)), $content);
             }
-            //if filename begin with _layouts, put file in folder site/templates as .php file
+            // if filename begin with _layouts, put file in folder site/templates as .php file
             if (substr($filePath, 0, 8) === '_layouts') {
-                $this->getDisk()->put($newPath = 'site' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR .
-                    pathinfo($filePath, PATHINFO_FILENAME) . '.' . str_replace(pathinfo($filePath, PATHINFO_EXTENSION),
+                $this->getDisk()->put($newPath = 'site' . DIRECTORY_SEPARATOR .
+                    'templates' . DIRECTORY_SEPARATOR .
+                    pathinfo($filePath, PATHINFO_FILENAME) . '.' .
+                    str_replace(pathinfo($filePath, PATHINFO_EXTENSION),
                         'php', pathinfo($filePath, PATHINFO_EXTENSION)), $content);
             } else {
-                //put remaining folders beginning with '_' in separate folders within content, every template with it's own
-                //subfolder
+                // put remaining folders beginning with '_' in separate folders within content,
+                // every template with it's own
+                // subfolder
 
-                //if Contentfile needs its own layout, search for the needed template, remame content file
+                //if Contentfile needs its own layout, search for the needed template,
+                // remame content file
                 if (strpos($content, 'layout:') !== false) {
                     preg_match('/(?<=layout:).[^\\s]+/', $content, $matches);
                     $whichTemplate = trim($matches[0]);
-                    $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR . str_replace('_', '',
+                    $this->getDisk()->put($newPath = 'content' .
+                        DIRECTORY_SEPARATOR . str_replace('_', '',
                             pathinfo($filePath, PATHINFO_DIRNAME)) . DIRECTORY_SEPARATOR .
-                        pathinfo($filePath, PATHINFO_FILENAME) .'.html'. DIRECTORY_SEPARATOR . $whichTemplate . '.txt',
-                        $content);
+                        pathinfo($filePath, PATHINFO_FILENAME) .'.html'. DIRECTORY_SEPARATOR .
+                        $whichTemplate . '.txt', $content);
                     //else, put them as subfolder with their original name
                 } else {
-                    $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR . str_replace('_', '',
+                    $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR .
+                        str_replace('_', '',
                             pathinfo($filePath, PATHINFO_DIRNAME)) . '.html'. DIRECTORY_SEPARATOR .
-                        pathinfo($filePath, PATHINFO_FILENAME) . DIRECTORY_SEPARATOR . pathinfo($filePath,
+                        pathinfo($filePath, PATHINFO_FILENAME) . DIRECTORY_SEPARATOR .
+                        pathinfo($filePath,
                             PATHINFO_FILENAME) . '.txt', $content);
                 }
             }
         } else {
-            //if Contentfile needs its own layout, search for the needed template, remame content file and
-            //create a copy as php file in templates folder
+            //if Contentfile needs its own layout, search for the needed template,
+            // remame content file and create a copy as php file in templates folder
             if (strpos($content, 'layout:') !== false) {
                 //look, which layout is chosen
                 preg_match('/(?<=layout:).[^\\s]+/', $content, $matches);
                 $whichTemplate = trim($matches[0]);
 
-                $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR . pathinfo($filePath, PATHINFO_FILENAME) . '.html'.
-                    DIRECTORY_SEPARATOR . str_replace(pathinfo($filePath, PATHINFO_FILENAME), $whichTemplate,
-                        str_replace(pathinfo($filePath, PATHINFO_EXTENSION), 'txt', $filePath), $filePath),
-                    $content);
+                $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR .
+                    pathinfo($filePath, PATHINFO_FILENAME) . '.html'.
+                    DIRECTORY_SEPARATOR . str_replace(pathinfo($filePath, PATHINFO_FILENAME),
+                        $whichTemplate, str_replace(pathinfo($filePath, PATHINFO_EXTENSION),
+                            'txt', $filePath), $filePath), $content);
             } else {
                 //else, just save migrated file in its own subfolder in content folder as .txt
-                $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR . pathinfo($filePath, PATHINFO_FILENAME) . '.html'.
-                    DIRECTORY_SEPARATOR . str_replace(pathinfo($filePath, PATHINFO_EXTENSION), 'txt', $filePath),
-                    $content);
+                $this->getDisk()->put($newPath = 'content' . DIRECTORY_SEPARATOR .
+                    pathinfo($filePath, PATHINFO_FILENAME) . '.html'.
+                    DIRECTORY_SEPARATOR . str_replace(pathinfo($filePath, PATHINFO_EXTENSION),
+                        'txt', $filePath), $content);
             }
         }
 
-        return preg_match('/' . self::TEMPLATE_TAG_OPEN. '.*(assign|if|for|split|append|first|upcase|endif).*'. self::TEMPLATE_TAG_CLOSE . '/', $content)
-            ? $newPath
-            : true;
+        return preg_match('/' . self::TEMPLATE_TAG_OPEN.
+            '.*(assign|if|for|split|append|first|upcase|endif).*'.
+            self::TEMPLATE_TAG_CLOSE . '/', $content)
+            ? $newPath : true;
+
     }//function
 
     /**
